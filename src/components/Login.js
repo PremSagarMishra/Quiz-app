@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; // Make sure to import from 'react-router-dom'
+import { useContext } from 'react';
+import App, { AppContext } from '../App';
 
 const Login = () => {
   const [name,  setName] = useState("");
   const navigate= useNavigate();
 
+  const {loggedIn,setLoggedIn}=useContext(AppContext)
+
+
+  loggedIn && navigate("/quiz");
   const handleSubmit = (event) => {
     event.preventDefault();
     const userDetails = {
@@ -13,7 +19,7 @@ const Login = () => {
     };
     
     localStorage.setItem("userdetails", JSON.stringify(userDetails));
-    
+    setLoggedIn(true)
     navigate("/quiz");
   };
 
